@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const { useState } = require("react");
 
 const Nav = () => {
@@ -77,24 +79,24 @@ const Nav = () => {
         </div>
         <ul className="flex items-center hidden space-x-8 lg:flex">
           <li>
-            <a
-              href="/"
+            <Link
+              to="/signin"
               aria-label="Sign in"
               title="Sign in"
               className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
             >
               Sign in
-            </a>
+            </Link>
           </li>
           <li>
-            <a
-              href="/"
+            <Link
+              to="/register"
               className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-blue-400 hover:bg-sky-600 focus:shadow-outline focus:outline-none"
               aria-label="Sign up"
               title="Sign up"
             >
-              Sign up
-            </a>
+              Register
+            </Link>
           </li>
         </ul>
         <div className="lg:hidden">
