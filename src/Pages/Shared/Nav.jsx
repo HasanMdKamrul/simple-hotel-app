@@ -1,9 +1,11 @@
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../contexts/UserContext";
 
-const { useState } = require("react");
+const { useState, useContext } = require("react");
 
 const Nav = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { logOutUser, user } = useContext(AuthContext);
 
   return (
     <div className="px-4 py-5 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8">
@@ -98,6 +100,32 @@ const Nav = () => {
               Register
             </Link>
           </li>
+          <li>
+            <button
+              onClick={logOutUser}
+              className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-blue-400 hover:bg-sky-600 focus:shadow-outline focus:outline-none"
+              aria-label="Sign out"
+              title="Sign out"
+            >
+              SignOut
+            </button>
+          </li>
+          {user?.uid && (
+            <li>
+              <div className="flex flex-col items-center justify-center">
+                <div className="flex flex-wrap gap-x-2 gap-y-2">
+                  <div className="relative flex-shrink-0">
+                    <span className="absolute bottom-0 right-0 w-4 h-4 border rounded-full"></span>
+                    <img
+                      src={user?.photoURL}
+                      alt=""
+                      className="w-12 h-12 border rounded-full"
+                    />
+                  </div>
+                </div>
+              </div>
+            </li>
+          )}
         </ul>
         <div className="lg:hidden">
           <button
