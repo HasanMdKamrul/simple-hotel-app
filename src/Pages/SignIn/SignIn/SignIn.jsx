@@ -1,8 +1,13 @@
 import Lottie from "lottie-react";
-import React from "react";
+import React, { useContext, useState } from "react";
 import signInAnimation from "../../../assests/Animations/signin.json";
+import { AuthContext } from "../../../contexts/UserContext";
 
 const SignIn = () => {
+  const { logInUser, setLoading, socialMediaUser, googleProvider } =
+    useContext(AuthContext);
+  const [error, setError] = useState("");
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const form = event.target;
@@ -10,6 +15,19 @@ const SignIn = () => {
     const email = form.email.value;
     const password = form.password.value;
     console.log(email, password);
+
+    // ** login user functionality
+
+    const userLogIn = async () => {
+      try {
+        const result = await logInUser(email, password);
+        console.log(result.user.displayName);
+      } catch (error) {
+        setError(error.message);
+      }
+    };
+
+    userLogIn();
   };
 
   return (
@@ -52,6 +70,7 @@ const SignIn = () => {
                     Forgot password?
                   </a>
                 </label>
+                <small>{error}</small>
               </div>
               <div className="form-control mt-6">
                 <button type="submit" className="btn btn-primary">
@@ -59,7 +78,15 @@ const SignIn = () => {
                 </button>
               </div>
               <div className="form-control mt-6">
-                <button className="btn btn-primary">Google</button>
+                <button
+                  onClick={() => {
+                    setLoading(true);
+                    socialMediaUser(googleProvider);
+                  }}
+                  className="btn btn-primary"
+                >
+                  Google
+                </button>
               </div>
             </form>
           </div>

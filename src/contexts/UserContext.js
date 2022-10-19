@@ -72,6 +72,7 @@ const UserContext = ({ children }) => {
     logInUser,
     logOutUser,
     loading,
+    setLoading,
     user,
     userProfileUpdate,
     userEmailVerification,

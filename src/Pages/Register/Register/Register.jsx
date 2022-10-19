@@ -12,6 +12,7 @@ const Register = () => {
     userEmailVerification,
     socialMediaUser,
     googleProvider,
+    setLoading,
   } = useContext(AuthContext);
 
   const handleSubmit = (event) => {
@@ -83,8 +84,6 @@ const Register = () => {
     signUp();
   };
 
-  const handleGoogle = () => {};
-
   return (
     <div>
       <div className="grid grid-cols-2">
@@ -155,7 +154,10 @@ const Register = () => {
                 </div>
                 <div className="form-control mt-6">
                   <button
-                    onClick={() => socialMediaUser(googleProvider)}
+                    onClick={() => {
+                      setLoading(true);
+                      socialMediaUser(googleProvider);
+                    }}
                     className="btn btn-primary"
                   >
                     Google
