@@ -2,7 +2,7 @@
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   daisyui: {
-    themes: false,
+    themes: [],
   },
   plugins: [require("daisyui")],
 };

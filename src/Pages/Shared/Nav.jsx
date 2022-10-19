@@ -1,6 +1,6 @@
 const { useState } = require("react");
 
-const Header = () => {
+const Nav = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
@@ -239,4 +239,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default Nav;
