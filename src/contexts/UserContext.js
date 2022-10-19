@@ -1,5 +1,6 @@
 import {
   createUserWithEmailAndPassword,
+  FacebookAuthProvider,
   getAuth,
   GoogleAuthProvider,
   onAuthStateChanged,
@@ -51,6 +52,10 @@ const UserContext = ({ children }) => {
 
   const googleProvider = new GoogleAuthProvider();
 
+  //   ** Facebook Provider
+
+  const facebookProvider = new FacebookAuthProvider();
+
   //   ** popup signin/register
 
   const socialMediaUser = (provider) => {
@@ -78,6 +83,7 @@ const UserContext = ({ children }) => {
     userEmailVerification,
     socialMediaUser,
     googleProvider,
+    facebookProvider,
   };
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>

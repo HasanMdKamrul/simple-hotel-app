@@ -17,6 +17,7 @@ const Register = () => {
     socialMediaUser,
     googleProvider,
     setLoading,
+    facebookProvider,
   } = useContext(AuthContext);
 
   const handleSubmit = (event) => {
@@ -168,6 +169,19 @@ const Register = () => {
                     className="btn btn-primary"
                   >
                     Google
+                  </button>
+                </div>
+                <div className="form-control mt-6">
+                  <button
+                    onClick={() => {
+                      setLoading(true);
+                      socialMediaUser(facebookProvider)
+                        .then(() => navigate(from, { replace: true }))
+                        .catch((error) => setError(error.message));
+                    }}
+                    className="btn btn-primary"
+                  >
+                    Facebook
                   </button>
                 </div>
               </form>

@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../../contexts/UserContext";
 
 const { useState, useContext } = require("react");
@@ -11,8 +11,8 @@ const Nav = () => {
     <div className="px-4 py-5 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8">
       <div className="relative flex items-center justify-between">
         <div className="flex items-center">
-          <a
-            href="/"
+          <Link
+            to="/"
             aria-label="Company"
             title="Company"
             className="inline-flex items-center mr-8"
@@ -35,48 +35,51 @@ const Nav = () => {
             <span className="ml-2 text-xl font-bold tracking-wide text-gray-800 uppercase">
               Company
             </span>
-          </a>
+          </Link>
           <ul className="flex items-center hidden space-x-8 lg:flex">
             <li>
-              <a
-                href="/"
+              <NavLink
+                to="/"
                 aria-label="Our product"
                 title="Our product"
-                className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                className={({ isActive }) =>
+                  isActive
+                    ? "font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                    : "font-medium tracking-wide text-blue-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                }
               >
-                Product
-              </a>
+                Home
+              </NavLink>
             </li>
             <li>
-              <a
-                href="/"
+              <NavLink
+                to="/about"
                 aria-label="Our product"
                 title="Our product"
-                className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                className={({ isActive }) =>
+                  isActive
+                    ? "font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                    : "font-medium tracking-wide text-blue-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                }
               >
-                Features
-              </a>
+                About
+              </NavLink>
             </li>
             <li>
-              <a
-                href="/"
+              <NavLink
+                to="/contact"
                 aria-label="Product pricing"
                 title="Product pricing"
-                className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                className={({ isActive }) =>
+                  isActive
+                    ? "font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                    : "font-medium tracking-wide text-blue-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                }
               >
-                Pricing
-              </a>
+                Contact
+              </NavLink>
             </li>
-            <li>
-              <a
-                href="/"
-                aria-label="About us"
-                title="About us"
-                className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-              >
-                About us
-              </a>
-            </li>
+            <li>{user?.displayName}</li>
           </ul>
         </div>
         <ul className="flex items-center hidden space-x-8 lg:flex">
