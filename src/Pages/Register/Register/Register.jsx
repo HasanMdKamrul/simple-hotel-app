@@ -1,11 +1,12 @@
 import Lottie from "lottie-react";
 import React, { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import signInAnimation from "../../../assests/Animations/signin.json";
 import { AuthContext } from "../../../contexts/UserContext";
 
 const Register = () => {
   const [error, setError] = useState("");
+  const navigate = useNavigate();
   const {
     createUser,
     userProfileUpdate,
@@ -156,7 +157,9 @@ const Register = () => {
                   <button
                     onClick={() => {
                       setLoading(true);
-                      socialMediaUser(googleProvider);
+                      socialMediaUser(googleProvider)
+                        .then(() => navigate("/"))
+                        .catch((error) => setError(error.message));
                     }}
                     className="btn btn-primary"
                   >
