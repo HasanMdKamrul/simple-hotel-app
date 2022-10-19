@@ -1,12 +1,15 @@
 import Lottie from "lottie-react";
 import React, { useContext, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import signInAnimation from "../../../assests/Animations/signin.json";
 import { AuthContext } from "../../../contexts/UserContext";
 
 const Register = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const from = location.state?.from?.pathname || "/";
   const {
     createUser,
     userProfileUpdate,
@@ -74,6 +77,7 @@ const Register = () => {
             alert(`Verification Email Send To: ${email}`);
           })
           .catch((error) => setError(`Email verification error happened`));
+        navigate(from, { replace: true });
         form.reset();
         setError("");
       } catch (error) {

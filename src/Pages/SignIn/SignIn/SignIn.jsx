@@ -1,6 +1,6 @@
 import Lottie from "lottie-react";
 import React, { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import signInAnimation from "../../../assests/Animations/signin.json";
 import { AuthContext } from "../../../contexts/UserContext";
 
@@ -8,8 +8,10 @@ const SignIn = () => {
   const { logInUser, setLoading, socialMediaUser, googleProvider } =
     useContext(AuthContext);
   const [error, setError] = useState("");
+  const location = useLocation();
 
   const navigate = useNavigate();
+  const from = location.state?.from?.pathname || "/";
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -25,7 +27,7 @@ const SignIn = () => {
       try {
         const result = await logInUser(email, password);
         console.log(result.user.displayName);
-        navigate("/");
+        navigate(from, { replace: true });
       } catch (error) {
         setError(error.message);
       }
@@ -86,7 +88,7 @@ const SignIn = () => {
                   onClick={() => {
                     setLoading(true);
                     socialMediaUser(googleProvider)
-                      .then(() => navigate("/"))
+                      .then(() => navigate(from, { replace: true }))
                       .catch((error) => setError(error.message));
                   }}
                   className="btn btn-primary"
