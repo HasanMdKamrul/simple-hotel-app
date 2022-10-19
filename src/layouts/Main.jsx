@@ -1,12 +1,15 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
+import RoomsDataContext from "../contexts/RoomsDataContext";
 import Nav from "../Pages/Shared/Nav";
 
 const Main = () => {
   return (
     <div>
-      <Nav />
-      <Outlet />
+      <RoomsDataContext>
+        <Nav />
+        <Outlet />
+      </RoomsDataContext>
     </div>
   );
 };
