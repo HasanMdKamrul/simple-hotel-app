@@ -19,6 +19,8 @@ const RoomsDataContext = ({ children }) => {
       }
     };
     dataLoad();
+
+    return () => dataLoad();
   }, []);
 
   const roomInfo = { rooms, loading };

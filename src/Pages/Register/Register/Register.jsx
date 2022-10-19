@@ -1,15 +1,63 @@
 import Lottie from "lottie-react";
-import React from "react";
+import React, { useContext, useState } from "react";
+import { Link } from "react-router-dom";
 import signInAnimation from "../../../assests/Animations/signin.json";
+import { AuthContext } from "../../../contexts/UserContext";
 
 const Register = () => {
+  const [error, setError] = useState("");
+  const { createUser } = useContext(AuthContext);
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const form = event.target;
 
     const email = form.email.value;
     const password = form.password.value;
-    console.log(email, password);
+    const confirm = form.confirm.value;
+    console.log(email, password, confirm);
+
+    // ** password validation
+
+    if (!(password === confirm)) {
+      setError(`Password didn't match`);
+      return;
+    }
+
+    if (!/(?=.*?[A-Z])/.test(password)) {
+      setError(`At least one upper case`);
+      return;
+    }
+    if (!/(?=.*?[a-z])/.test(password)) {
+      setError(`At least one lower case English letter`);
+      return;
+    }
+    if (!/(?=.*?[0-9])/.test(password)) {
+      setError(`At least one digit`);
+      return;
+    }
+    if (!/(?=.*?[#?!@$%^&*-])/.test(password)) {
+      setError(`At least one special character`);
+      return;
+    }
+    if (password.length < 6) {
+      setError(`At least 6 character`);
+      return;
+    }
+
+    // ** SignUp functionality
+
+    const signUp = async () => {
+      try {
+        await createUser(email, password);
+        setError("");
+      } catch (error) {
+        console.log(error);
+        setError(error.message);
+      }
+    };
+
+    signUp();
   };
 
   return (
@@ -46,9 +94,19 @@ const Register = () => {
                   className="input input-bordered"
                 />
                 <label className="label">
-                  <a href="/" className="label-text-alt link link-hover">
+                  <span className="label-text">Confirm Password</span>
+                </label>
+                <input
+                  name="confirm"
+                  type="password"
+                  placeholder="Confirm Password"
+                  className="input input-bordered"
+                />
+                <label className="label">
+                  <Link to="/" className="label-text-alt link link-hover">
                     Forgot password?
-                  </a>
+                  </Link>
+                  <small>{error}</small>
                 </label>
               </div>
               <div className="form-control mt-6">
