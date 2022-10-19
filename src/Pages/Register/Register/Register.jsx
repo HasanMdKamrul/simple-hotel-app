@@ -6,7 +6,7 @@ import { AuthContext } from "../../../contexts/UserContext";
 
 const Register = () => {
   const [error, setError] = useState("");
-  const { createUser } = useContext(AuthContext);
+  const { createUser, userProfileUpdate } = useContext(AuthContext);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -15,7 +15,8 @@ const Register = () => {
     const email = form.email.value;
     const password = form.password.value;
     const confirm = form.confirm.value;
-    console.log(email, password, confirm);
+    const displayName = form.name.value;
+    console.log(email, password, confirm, displayName);
 
     // ** password validation
 
@@ -45,11 +46,21 @@ const Register = () => {
       return;
     }
 
+    // ** userProfile info
+
+    const userProfileInfo = {
+      displayName,
+    };
+
     // ** SignUp functionality
 
     const signUp = async () => {
       try {
         await createUser(email, password);
+        userProfileUpdate(userProfileInfo)
+          .then(() => console.log("Profile Updated"))
+          .catch((error) => setError(`Profile update Error Happened`));
+        form.reset();
         setError("");
       } catch (error) {
         console.log(error);
@@ -74,11 +85,24 @@ const Register = () => {
             <form onSubmit={handleSubmit} className="card-body">
               <div className="form-control">
                 <label className="label">
+                  <span className="label-text">Name</span>
+                </label>
+                <input
+                  required
+                  name="name"
+                  type="text"
+                  placeholder="Name"
+                  className="input input-bordered"
+                />
+              </div>
+              <div className="form-control">
+                <label className="label">
                   <span className="label-text">Email</span>
                 </label>
                 <input
+                  required
                   name="email"
-                  type="text"
+                  type="email"
                   placeholder="email"
                   className="input input-bordered"
                 />
@@ -111,7 +135,7 @@ const Register = () => {
               </div>
               <div className="form-control mt-6">
                 <button type="submit" className="btn btn-primary">
-                  Login
+                  Register
                 </button>
               </div>
               <div className="form-control mt-6">
